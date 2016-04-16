@@ -1,0 +1,294 @@
+
+    <html>
+        <head>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+            <style>body{ margin:0 100; background:whitesmoke; }</style>
+        </head>
+        <body>
+            <h1>Monarch Group Sales 2015-2016 Report</h1>
+            <h4>Report created by Anthony Abercrombie; April 2016.</h4>
+
+            <h2>Abstract</h2>
+            <p>The objectives of this report are to summarize Monarch Group Sales activity in the 2015 - 2016 season, measure performance in comparison to the 2014 - 2015 season, and explore patterns in Monarch's CRM data. The intention of performing this analysis is to define and clarify Group Sales' market share and provide a platform for growing Group Sales revenue, adding more skiers to Monarch's customer base, reducing churn, and improving the overall group experience at Monarch.</p>
+            <p>The results of the report are organized by the general business questions they address. These are questions that management may be interested in for assessing performance and identifying opportunities for improvement.</p>
+            <ol>
+              <li>How did Monarch Group Sales perform this season in comparison to last season?</li>
+              <li>Where are Monarch's groups coming from?</li>
+              <li>When did Group Sales' skier attendance and revenue peak?</li>
+              <li>When are Monarch's groups booking their reservations?</li>
+              <li>Who are Monarch's groups and who are Monarch's highest value constituents?</li>
+              <li>Who were Monarch's most valuable groups the last two seasons?</li>
+              <li>How are Monarch's groups distributed along their performance indicators? What are the patterns in the data?</li>
+              <li>Which packages are groups buying?</li>
+            </ol>
+
+
+            <h2>Methods</h2>
+            <p>This report draws on data from Monarch's Salesforce CRM database. Monarch started using Salesforce to track group accounts and opportunities at the beginning of the 2014-2015 ski season, so only two years of data are available for analysis.</p>
+            <p>Data was obtained by SQL querying Salesforce with the SOAP API. Figures presented in the report update automatically after the query is renewed.</p>
+            <p>Data cleaning and wrangling was performed using Python's pandas and numpy libraries in an IPython notebook IDE. Interactive data visualizations were coded in JSON format and powered by Plotly's Python API, which renders JSONs into D3.JS graphics.</p>
+
+            <p>Source code can be found on GitHub at https://github.com/AAbercrombie0492/Monarch_Salesforce.git . Data is confidential and Monarch's API login credentials are not publicly available.</p>
+
+
+            <h2>Results:</h2>
+
+            <h3>1.How did Monarch Group Sales perform this season in comparison to last season?</h3>
+            <iframe width="1000" height="500" frameborder="0" seamless="seamless" scrolling="no" src=https://plot.ly/~AAbercrombie0492/34.embed?width=800&height=550"> </iframe>
+            <p><b>Figure 1: Graphical overview of Skier Days, Revenue, Visits, and Groups in the 2014-2015 season and the 2015-2016 season.</b></p>
+
+            <table border="1" class="dataframe table">  <thead>    <tr>      <th></th>      <th colspan="3" halign="left">2014-2015</th>      <th colspan="3" halign="left">2015-2016</th>      <th colspan="3" halign="left">Difference</th>    </tr>    <tr>      <th></th>      <th>Mean</th>      <th>Median</th>      <th>Sum</th>      <th>Mean</th>      <th>Median</th>      <th>Sum</th>      <th>Mean</th>      <th>Median</th>      <th>Sum</th>    </tr>    <tr>      <th>Metric</th>      <th></th>      <th></th>      <th></th>      <th></th>      <th></th>      <th></th>      <th></th>      <th></th>      <th></th>    </tr> </thead>  <tbody>    <tr>      <th>Group Size Per Day</th>      <td>22.88</td>      <td>16.00</td>      <td>6542.50</td>      <td>20.34</td>      <td>15.00</td>      <td>5613.04</td>      <td>2.54</td>      <td>1.00</td>     <td>929.46</td>    </tr>    <tr>      <th>Revenue</th>     <td>1741.91</td>      <td>1267.00</td>      <td>501670.15</td>      <td>1691.50</td>     <td>1265.00</td>      <td>465162.93</td>      <td>50.41</td>      <td>2.00</td>     <td>36507.22</td>    </tr>    <tr>      <th>Revenue per Person</th>      <td>76.15</td>      <td>79.19</td>      <td>76.68</td>      <td>83.17</td>      <td>84.33</td>      <td>82.87</td>      <td>7.03</td>      <td>5.15</td>      <td>6.19</td>    </tr>    <tr>      <th>Skier Count</th>      <td>23.47</td>      <td>17.00</td>      <td>7371.00</td>      <td>23.39</td>      <td>16.00</td>      <td>7227.00</td>      <td>0.09</td>      <td>1.00</td>      <td>144.00</td>    </tr>    <tr>      <th>Skier Days</th>      <td>41.56</td>      <td>30.00</td>      <td>11929.00</td>      <td>37.57</td>      <td>27.50</td>      <td>10370.00</td>      <td>3.99</td>      <td>2.50</td>      <td>1559.00</td>    </tr>    <tr>      <th>Trip Duration</th>      <td>1.84</td>      <td>2.00</td>      <td>577.00</td>      <td>2.04</td>      <td>2.00</td>      <td>629.00</td>      <td>0.20</td>      <td>0.00</td>      <td>52.00</td>    </tr>  </tbody></table>
+            <p><b>Figure 2: Summary statistics on Group Sales performance indicators across the last two ski seasons</b></p>
+            <p>
+              Group Size per Day is an adjusted measure of Skier Days that accounts for variability in group member attendance over the course of a group's visit. For example, a 20 person group may have a 3 day reservation at Monarch, but only 15 of those 20 skiers may ski all 3 days. Group Size per Day = Skier Days / Trip Duration, so it essentially measures a group's average Skier Days per day.</p> 
+
+            <p>The number of unique groups and visits from 2015-2016 is not far off from 2015-2015's stats. In 2015-2016, Group Sales brought in 1,642 fewer Skier Days than 2014-2015. The lower Skier Day count factors into a revenue lag of $39,775.15 behind 2014-2015.</p>
+
+            <p>In the 2015-2016 season, 40% of our groups were repeat groups from 2014-2015. Of the 309 group visits Group Sales hosted in the 2015-2016, 54% of those group visits can be attributed to repeat groups from both years.</p>
+
+
+
+            <h3>2. Where are Monarch's groups coming from?</h3>
+            <iframe width="100%" height="520" frameborder="0" src="https://amarinusha.cartodb.com/viz/01ada270-f9da-11e5-9eb8-0e31c9be1b51/embed_map" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+            <p><b>Figure 3: Geographic representation of Group Sales groups by skier days and season classification.</b></p>
+
+            <iframe width="100%" height="520" frameborder="0" src="https://amarinusha.cartodb.com/viz/929f40d6-f9d5-11e5-ad6f-0e31c9be1b51/embed_map" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+            <p><b>Figure 4: Geographic representation of Group Sales groups by revenue and season classification. </b></p>
+
+            <iframe width="100%" height="520" frameborder="0" src="https://amarinusha.cartodb.com/viz/69fdcbd8-f9db-11e5-b567-0ecd1babdde5/embed_map" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+            <p><b>Figure 5: Cluster explorer that allows a user to quickly quantify the number of groups that originate from a given region.</b></p>
+
+            <iframe width="100%" height="520" frameborder="0" src="https://amarinusha.cartodb.com/viz/c0561516-f9d7-11e5-97c7-0ecfd53eb7d3/embed_map" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+            <p><b>Figure 6: Heat map that depicts the regional density of groups.</b></p>
+
+            <p>
+              Lookup addresses for each group are associated with the group leader's billing address, not the organization's billing address. This broadens the geographic range of groups that purchase tickets through wholesalers.</p>
+
+            <p>Groups from 2014-2015 seem to visually indicate a broader range of geographic origins than 2015-2016 groups.</p>
+
+
+            <h3>3. When did Group Sales' skier attendance and revenue peak?</h3>
+            <iframe width="800" height="520" frameborder="0" seamless="seamless" scrolling="no"             src=https://plot.ly/~AAbercrombie0492/79.embed?width=800&height=550"></iframe>
+            <p><b>Figure 7: Time series of revenue and skier days over the course of the 2015-2016 season. Revenue and skier days from multi-day groups factor into the group's arrival date.</b></p>
+
+
+            <iframe width="100%" height="520" frameborder="0" src="https://amarinusha.cartodb.com/viz/4df768d8-f9d9-11e5-9cd2-0e31c9be1b51/embed_map" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+            <p><b>Figure 8: Video map of group density by arrival date and point of origin from 2014 - 2016.</b></p>
+
+            <p>
+              Peak periods in Group Sales traffic occur between Christmas and New Year's, mid-January (Martin Luther King Jr. Weekend), the week following Valentine's day, and Spring Break.</p>
+
+            <h3>4. When are Monarch's groups booking their reservations?</h3>
+            <iframe width="900" height="800" frameborder="0" scrolling="no" src="https://plot.ly/~AAbercrombie0492/83.embed"></iframe>
+            <p><b>Figure 9: Number of trips booked per day from 2014-2016. </b></p>
+            <p> 12/08/2016 and 01/24/2016 show unusually high reservation counts. </p>
+
+            <h3>5. Who are Monarch's groups and who are Monarch's highest value constituents?</h3>
+            <iframe width="800" height="520" frameborder="0" seamless="seamless" scrolling="no"             src=https://plot.ly/~AAbercrombie0492/14.embed?width=800&height=550"></iframe>
+            <p><b>Figure 10: Gross revenue by industry, drilled down by month of arrival date.</b></p>
+
+            <h4>Group Sales Industry Stats, 2014 - 2016: </h4>
+            <table border="1" class="dataframe table">  <thead>    <tr style="text-align: right;">      <th>Industry</th>      <th>Trip Duration</th>      <th>Lesson</th>      <th>Rentals</th>      <th>Revenue</th>      <th>Skier Count</th>      <th>Skier Days</th>    </tr>  </thead>  <tbody>    <tr>      <td>Business</td>      <td>19</td>      <td>4</td>      <td>5</td>      <td>16751.0</td>      <td>620</td>      <td>648</td>    </tr>    <tr>      <td>Camp</td>      <td>9</td>      <td>2</td>      <td>2</td>      <td>5823.0</td>      <td>69</td>      <td>162</td>    </tr>    <tr>      <td>Charity</td>      <td>2</td>      <td>1</td>      <td>0</td>      <td>138.0</td>      <td>17</td>      <td>7</td>    </tr>    <tr>      <td>Church</td>      <td>244</td>      <td>71</td>      <td>117</td>      <td>257176.0</td>      <td>3008</td>      <td>4531</td>    </tr>    <tr>      <td>Club</td>      <td>31</td>      <td>10</td>      <td>16</td>      <td>20521.0</td>      <td>451</td>      <td>531</td>    </tr>    <tr>      <td>Colorado School</td>      <td>159</td>      <td>71</td>      <td>82</td>      <td>115721.0</td>      <td>3597</td>      <td>2957</td>    </tr>    <tr>      <td>Family</td>      <td>305</td>      <td>59</td>      <td>95</td>      <td>188198.0</td>      <td>1710</td>      <td>3845</td>    </tr>    <tr>      <td>Healthcare</td>      <td>3</td>      <td>2</td>      <td>2</td>      <td>2205.0</td>      <td>71</td>      <td>58</td>    </tr>    <tr>      <td>Higher Education</td>      <td>79</td>      <td>21</td>      <td>35</td>      <td>56999.0</td>      <td>850</td>      <td>1020</td>    </tr>    <tr>      <td>Military</td>      <td>11</td>      <td>2</td>      <td>2</td>      <td>44172.0</td>      <td>115</td>      <td>1517</td>    </tr>    <tr>      <td>Organization</td>      <td>20</td>      <td>9</td>      <td>9</td>      <td>27622.0</td>      <td>382</td>      <td>608</td>    </tr>    <tr>      <td>Other</td>      <td>6</td>      <td>1</td>      <td>2</td>      <td>2842.0</td>      <td>39</td>      <td>62</td>    </tr>    <tr>      <td>Out of State School</td>      <td>13</td>      <td>3</td>      <td>7</td>      <td>9212.0</td>      <td>148</td>      <td>154</td>    </tr>    <tr>      <td>Wholesaler</td>      <td>290</td>      <td>81</td>      <td>43</td>      <td>258454.9</td>      <td>3481</td>      <td>7539</td>    </tr>  </tbody></table>
+          <p><b>Figure 11: Performance indicator totals by industry, 2014-2016 </b></p>
+          <p>
+            Most group categories generate their largest monthly revenues in March. The exceptions are Colorado Schools and Higher Education groups, which bring the most of their business in January. </p>
+  
+            <h3>6. Who were Monarch's most valuable groups the last two seasons?</h3>
+            <iframe width="1000" height="520" frameborder="0" seamless="seamless"scrolling="no"         src=https://plot.ly/~AAbercrombie0492/73.embed?width=1000
+            &height=520"></iframe>
+
+            <p><b> Figure 12: Revenue and skier days from accounts valued at over $10,000 over the last two ski seasons.</b></p>
+            <p>
+              6 of the 12 groups shown above are wholesalers. Revenue and Skier Days are representative of the last 2 ski seasons. </p>
+
+            <h3>7. How are Monarch's groups distributed along their performance indicators? What are the patterns in the data?</h3>
+            <iframe width="900" height="800" frameborder="0" scrolling="no" src="https://plot.ly/~AAbercrombie0492/81.embed"></iframe>
+            <p><b>Figure 13: Correlation matrix of performance indicators; skier days, skier count, revenue, and trip duration</b></p>
+
+            <p>
+              Skier Days, Skier Count, and Trip Duration distributions are all highly left skewed. I will need to examine the normality of Revenue's residuals in order to determine whether a linear or logistic regression model is appropriate. </p>
+
+            <iframe width="800" height="520" frameborder="0" seamless="seamless" scrolling="no"             src=https://plot.ly/~AAbercrombie0492/77.embed?width=800&height=550"></iframe>
+
+            <p><b>Figure 14: Histogram distribution of group revenues, indicating the number of groups from each year that fall within a set of revenue brackets.</b></p>
+
+            <p> Overall, the 2014-2015 season shows a greater number of high revenue groups than the 2015-2016 season. Visually, it is ambigous whether this distribution in normal enough for linear regression. Residuals need to be examined.</p>
+
+            <iframe width="800" height="520" frameborder="0" seamless="seamless" scrolling="no"             src=https://plot.ly/~AAbercrombie0492/45.embed?width=800&height=550"></iframe>
+            <p><b>Figure 15: Histogram distribution of group skier days from each year.</b></p>
+
+            <iframe width="800" height="520" frameborder="0" seamless="seamless" scrolling="no"             src=https://plot.ly/~AAbercrombie0492/57.embed?width=800&height=550"></iframe>
+            <p><b>Figure 16: Histogram distribution of group visit durations from each year.</b></p>
+
+            <iframe width="800" height="520" frameborder="0" seamless="seamless" scrolling="no"             src=https://plot.ly/~AAbercrombie0492/55.embed?width=800&height=550"></iframe>
+            <p><b>Figure 17: Histogram distribution of group skier counts from each year.</b></p>
+
+            <p>The difference in Revenue and Skier Days between 2014-2015 and 2015-2016 is visually apparent, but there does not seem to be major differences in the Visit Duration and Skier Count distributions that would explain these differences. The following graph visualizes Group Size per Day, which depicts a group's Skier Days divided by their Trip Duration.</p>
+
+            <iframe width="800" height="520" frameborder="0" seamless="seamless" scrolling="no"             src=https://plot.ly/~AAbercrombie0492/67.embed?width=800&height=550"></iframe>
+            <p><b>Figure 18: Histogram distribution of group size per day from each year's groups.</b></p>
+
+            
+            <p>
+              Even though Skier Counts and Trip Durations from both years are comparable, it seems that 2015-2016 groups tended to have lower Group Sizes per Day. This means that more participants within the 2015-2016 groups chose to not ski the full duration of their group's reservation. 
+            </p>
+           
+
+            <iframe width="800" height="520" frameborder="0" seamless="seamless" scrolling="no"             src=https://plot.ly/~AAbercrombie0492/61.embed?width=800&height=550"></iframe>
+            <p><b> Figure 19: Scatterplot of group visit duration and skier count for each year.</b></p>
+
+            <p>More outlier groups with high skier counts are observed in the 3 day visit category. </p>
+
+            <iframe width="800" height="520" frameborder="0" seamless="seamless" scrolling="no"             src=https://plot.ly/~AAbercrombie0492/63.embed?width=800&height=550"></iframe>
+            <p><b>Figure 20: Scatterplot of group skier days and revenue for each year. </b></p>
+
+            <p>Beyond the cluster of groups below $4k and 100 Skier Days, most of the high yield outlier groups are from Wholesalers. 2014-2015 outliers appear to be higher in Revenue and more numerous than 2015-2016 outliers.</p>
+
+            <iframe width="800" height="700" frameborder="0" seamless="seamless" scrolling="no"             src=https://plot.ly/~AAbercrombie0492/65.embed?width=800
+            &height=700"></iframe>
+            <p><b>Figure 21: 3D Scatterplot of Visit Duration, Group Size/Skier Count, and Revenue. Pink dots are 2014-2015 groups, red dots are 2015-2016 groups, and purple dots are 2015-2016 groups that Group Sales retained from 2014-2015.</b></p>
+
+            <p>Most of 2015-2016's outlier groups with high revenues are repeats from the previous year.</p>
+
+            <h3>8. Which packages are groups buying?</h3>
+            <iframe width="800" height="520" frameborder="0" seamless="seamless" scrolling="no"src=https://plot.ly/~AAbercrombie0492/69.embed?width=800&height=550"></iframe>
+            <p><b>Figure 22: Box plot illustrating the ranges in revenue generated by each package type for each visit duration. </b></p>
+            <p>When a group makes a reservation online, they check a box to signify whether anyone in their group will need rentals or lessons. The data available from Monarch's Salesforce accounting is limited in that it does allow us to examine the number of indivuals within each group that purchase lessons or rent gear. </p>
+
+            <iframe width="800" height="520" frameborder="0" seamless="seamless" scrolling="no"             src=https://plot.ly/~AAbercrombie0492/71.embed?width=800&height=550"></iframe>
+            <p><b>Figure 23: Scatter plot of skier days and revenue, grouped by package type.</b></p>
+
+            <p>Lift Ticket + Lessons groups show a wide range in Revenue yield. This may be explained by the observation that many Wholesaler groups purchase lift tickets and lessons with Monarch, but rent gear elsewhere.</p>
+
+
+            <h4> Group Statistics 2014-2016 Grouped by Package Type. </h4>
+            <table border="1" class="dataframe table">  <thead>    <tr style="text-align: right;">      <th></th>      <th>Metric</th>      <th>Group Size Per Day</th>      <th>Revenue</th>      <th>Revenue per Person</th>      <th>Skier Count</th>      <th>Skier Days</th>      <th>Trip Duration</th>    </tr>  </thead>  <tbody>    <tr>      <th rowspan="3" valign="top">Lift Tickets Only: 158 Groups</th>      <th>Mean</th>      <td>16.90</td>      <td>1218.89</td>      <td>1</td>      <td>18.27</td>      <td>40.23</td>      <td>1.78</td>    </tr>    <tr>      <th>Median</th>      <td>13.00</td>      <td>630.00</td>      <td>1</td>      <td>14.00</td>      <td>20.00</td>      <td>1.00</td>    </tr>    <tr>      <th>Sum</th>      <td>2197.12</td>      <td>162112.00</td>      <td>133</td>      <td>2667.00</td>      <td>5391.00</td>      <td>260.00</td>    </tr>    <tr>      <th rowspan="3" valign="top">Lift Tickets + Rentals: 138 Groups</th>      <th>Mean</th>      <td>17.17</td>      <td>1439.02</td>      <td>1</td>      <td>18.14</td>      <td>29.17</td>      <td>1.77</td>    </tr>    <tr>      <th>Median</th>      <td>14.00</td>      <td>1065.50</td>      <td>1</td>      <td>15.00</td>      <td>22.00</td>      <td>1.00</td>    </tr>    <tr>      <th>Sum</th>      <td>2060.08</td>      <td>172682.68</td>      <td>120</td>      <td>2503.00</td>      <td>3500.00</td>      <td>244.00</td>    </tr>    <tr>      <th rowspan="3" valign="top">Lift Tickets + Lessons: 57 Groups</th>      <th>Mean</th>      <td>36.23</td>      <td>2588.40</td>      <td>1</td>      <td>34.26</td>      <td>82.70</td>      <td>2.32</td>    </tr>    <tr>      <th>Median</th>      <td>25.00</td>      <td>1725.53</td>      <td>1</td>      <td>25.00</td>      <td>52.00</td>      <td>2.00</td>    </tr>    <tr>      <th>Sum</th>      <td>1920.25</td>      <td>139773.56</td>      <td>54</td>      <td>1953.00</td>      <td>4383.00</td>      <td>132.00</td>    </tr>    <tr>      <th rowspan="3" valign="top">Lift Tickets + Rentals + Lessons: 285 Groups</th>      <th>Mean</th>      <td>23.09</td>      <td>2049.08</td>      <td>1</td>      <td>26.51</td>      <td>39.92</td>      <td>2.01</td>    </tr>    <tr>      <th>Median</th>      <td>17.00</td>      <td>1706.50</td>      <td>1</td>      <td>20.00</td>      <td>32.00</td>      <td>2.00</td>    </tr>    <tr>      <th>Sum</th>      <td>6049.08</td>      <td>536859.84</td>      <td>261</td>      <td>7554.00</td>      <td>10459.00</td>      <td>573.00</td>    </tr>  </tbody></table>
+            <p><b>Figure 24: Group Statistics 2014-2016 grouped by package type.</b></p>
+
+            <p>Lift Tickets + Rentals + Lessons groups brought the most Revenue, Skiers, and Group Days to Monarch from 2014-2016. Lift Ticket + Lessons groups had the highest mean and median figures across all performance metrics.</p>
+
+            <h3>Discussion</h3>
+
+            <h4>1. How did Monarch Group Sales perform this season in comparison to last season?</h4>
+
+            <p>The number of group visits and the the number of unique groups is more or less equivalent for the 2014-2015 and 2015-2016 seasons (Figures 1, 2, 16, and 17). Lower revenue and skier day figures from this year can be explained by a lower average group size per day and smaller Wholesaler groups in comparison to last year. (Figures 2, 18)</p>
+
+            <p>In the 2015-2016 season, Group Sales' skier count (anticipated group size pre-arrival) was higher on average (difference of 0.18 skiers per group) and in total (difference of 39 skiers throughout the season).The same goes for trip duration, which on average was 0.2 days greater and over the course of the season was greater by 56 visit days. Revenue per Skier was greater in 2015-2016 by $7.72. (Figures 1 & 2)</p>  
+
+            <p>Why are group participants cutting ski days off their visit? Since 40% of 2015-2016 groups are returning groups from the previous year, it makes since that participants that have skied Monarch before would be less interested in skiing multiple days in a row. How can Monarch maintain the interest of returning participants? If these participants are spending part of their trips away from the mountain, which local activites and attractions are they drawn to? Are there opportunities for local business partnerships and referral programs, which could retain some lost revenue, that haven't been implemented yet?</p> 
+
+            <h4>2. Where are Monarch's groups coming from?</h4>
+
+            <p>In the 2015-2016 season, 85% of Group Sales <b>revenue </b> came from <b>Colorado (50.61%), Texas (19.07%), and Kansas (15.11%) </b> groups (See 2015-2016 analysis spreadsheets). 87% of Group Sales skier days are attributed to Colorado (58.99%), Texas (15.46%), and Kansas (12.79%). </p>
+            <p>The following states rank in the top 5 for highest <b>revenue per group</b>:</p>
+            <ol>
+              <li><b>Missouri</b> - $4,113.50 per group </li>
+              <li><b>Oklahoma</b> - $3,051 per group </li>
+              <li><b>Arkansas</b> - $2,626.67 per group </li>
+              <li><b>Louisiana</b> - $2,536 per group </li>
+              <li><b>Texas</b> - $2,213.76 per group </li>
+            </ol>
+            <p>The following states rank in the top 5 for highest <b>revenue per skier</b>:</p>
+            <ol>
+              <li><b>Alabama</b> - $84.50 per skier</li>
+              <li><b>Arkansas</b> - $70.36 per skier</li>
+              <li><b>Tennessee</b> - $59.58 per skier</li>
+              <li><b>Missouri</b> - $58.35 per skier</li>
+              <li><b>Texas</b> - $55.27 per skier</li>
+            </ol>
+            <p>Visual exploration of the maps presented in Figures 3 - 6 may assist in planning future sales, marketing, and business development trips in the midwest. Here a few recommendations for further investigation: </p>
+            <ul>
+              <li>Kansas City, MO area, 12 groups from 2014-2016</li>
+              <li>Oklahoma City, OK - 7 groups from 2014-2016</li>
+              <li>Siloam Springs and Fort Smith, AR - 4 groups from 2014 - 2016. </li>
+              <li>Shreveport, LA - 1 group from 2014-2016</li>
+              <li>Baton Rouge/New Orleans, LA - 3 groups from 2014-2016</li>
+              <li>Dallas/Fort Worth, TX  - 22 groups from 2014-2016</li>
+              <Albuquerque, NM - 8 groups from 2014-2016</li>
+            </ul>
+
+            <h4>3. When did Group Sales' skier attendance and revenue peak?</h4>
+
+            <p>In the 2015-2016 season, peak periods in Group Sales traffic occured between Christmas and New Year's, mid-January (Martin Luther King Jr. Weekend), the week following Valentine's day, and Spring Break. The skier day and revenue amounts that correspond to each date are the aggregate sums of all groups that started their trips on that date. High revenue groups often reserve multi-day trips, so it is important to keep in mind that their entire revenue and skier day amounts are aggregated into their first day for the purpose of visualization. (Figures 7 and 8) </p>
+
+
+            <h4>4. When are Monarch's groups booking their reservations?</h4>
+
+            <p>Figure 9 shows the number of group reservations that were booked per day from 2014-2016. These dates correspond with the date that a Group Sales employee opened an opportunity in Salesforce. Reservations are made online before Salesforce data entry, so it is possible that there are mismatches between date reserved online and date opened.</p>
+            <p>Groups likely plan and budget their trips far in advance of the date they make a reservation online. When Group Sales sends out surveys to this year's groups, the survey will ask the group leader when their organization started planning and budgeting for the trip. This information, combined with customer segmentation and cluster analysis, can help Monarch can get a better idea of when groups start to consider ski trips and when to market for optimal conversion.</p> 
+
+            <h4>5. Who are Monarch's groups and who are Monarch's highest value constituents?</h3>
+
+            <p> To reference the following statistics, see the Group Sales spreadsheet analysis</p>
+
+            <p> In the <b>2015-2016 season</b>, 84.57% of Monarch's Group Sales revenue came from: </p>
+
+
+
+            <ol>
+              <li><b>Wholesalers</b> (26.65%)</li>
+              <li><b>Churches</b> (23.67%)</li>
+              <li><b>Families</b> (20.92%)</li>
+              <li><b>Colorado Schools</b> (13.33%)</li>
+            </ol>
+
+            <p> In the <b>2014-2015 season</b>, 85.36% of Monarch's Group Sales revenue came from: </p>
+
+            <ol>
+              <li><b>Wholesalers</b> (32.82%)</li>
+              <li><b>Families</b> (18.87%)</li>
+              <li><b>Churches</b> (18.76%)</li>
+              <li><b>Colorado Schools</b> (14.90%)</li>
+            </ol>
+
+            <p>Churches, and to a lesser extent families, became more significant sources of revenue in the 2015-2016 season. <p>
+
+            <p>Figure 10 shows that for most group types, the majority of revenue comes in the month of March. The only two exceptions are Colorado Schools and Higher Education, which both bring the majority of their revenue in January. This may support the case for increasing marketing and promotional efforts to schools in January, or decreasing the number of School Group Rate days in January.</p>
+
+            <p>The following group types rank in the top 5 for highest <b>revenue per group</b> in the 2015-2016 season:</p>
+
+            <ol>
+              <li><b>Wholesalers</b> - $2,029.05 per group</li>
+              <li><b>Churches</b> - $1,965.47</li>
+              <li><b>Organizations</b> - $1,836.22</li>
+              <li><b>Families</b> - $1592.75</li>
+              <li><b>Clubs</b> - $1,431.86</li>
+            </ol>
+
+            <p>The following group types rank in the top 5 for highest <b>revenue per skier</b> in the 2015-2016 season:</p>
+
+            <ol>
+              <li><b>Higher Education</b> - $59.74 per Skier</li>
+              <li><b>Churches</b> - $56.39 per Skier</li>
+              <li><b>Out of State Schools</b> - $55.50 per Skier</li>
+              <li><b>Organizations</b> - $49.93 per Skier</li>
+              <li><b>Families</b> - $49.57 per Skier</li>
+            </ol>
+
+            <p>Over the course of the last two seasons,Church groups had the highest number of groups that rented gear (117 group visits that included rentals). Wholesaler groups had the highest number of groups that purchased lessons (81 groups). Families spent the most time at Monarch the last two seasons at a total of 305 visit days.</p>
+
+            <p>While the Wholesaler, School, Church, and Family classifications are useful, there is a limited amount of insight that can be deduced from the data with a priori classifications. Statistical and Machine Learning methods including cluster analysis, hierarchical classification, and scoring models can be used to detect more nuanced groupings and associations in our customer base. Further analysis that includes demographic, geographic, and behavioral characteristics of Monarch's groups can enable more precise, intelligent marketing.</p>
+
+            <h4>6. Who were Monarch's most valuable groups the last two seasons? </h3>
+
+            <p>Needless to say, Tommy Query of White Diamond Ski Tours is THE MAN. The 12 groups listed in Figure 12 are accountable for $295,724.47 over the last two seasons, or 31% of gross revenue. These same groups are also accountable for 8,058 skier days, or 36% of the total skier days from 2014-2016.</p>
+
+            <h4>7. How are Monarch's groups distributed along their performance indicators? What are the patterns in the data?</h3>
+
+            <p> Skier days, skier count, and trip duration all skew highly to the left. A large proportion of our groups are small (10 - 20 people) and stay for a day or two at most.Averages for these indicators are affected by few outlier groups with large number of skiers that generate high revenue.</p>
+
+            <p>Figure 21 shows that many of the high value outlier groups from 2016 are repeats from 2015, which is great! Instead of focusing on attaining more groups and group visits each season, Monarch Group Sales may consider focusing on retaining more high value groups and up-selling its loyal customer base. </p>
+
+            <h4>8. Which packages are groups buying?</h3>
+
+            <p>Lift Tickets + Rentals + Lessons groups brought the most Revenue, Skiers, and Group Days to Monarch from 2014-2016. Lift Ticket + Lessons groups had the highest mean and median figures across all performance metrics.</p>
+
+            <p>In order to do a more thorough analysis of package purchasing through group sales, Group Sales workbooks need to be mined, cleaned, wrangled, and merged so that purchasing decisions can be examined at the scale of the individual. This can be done either by querying REZ  group accounts or writing a script that parses all of the workbooks on Monarch's shared network drive.</p>
+
+            <h3>Conclusion</h3>
+            <p> There is still a lot of work that needs to be done to analyze and better understand Monarch's customer base. Examining the distributions of Group Sales data indicates that Group Sales revenue is driven by fewer, larger groups that are often tied to Wholesalers. Although Group Sales only accounts for 4% of Monarch's annual revenue on average, Group Sales introduces large quantities of beginner skiers and Monarch first-timers to the mountain, expanding Monarch's potential market share. </p>
+            <p> According to the 2014-2015 Group Sales report, only 6% of 2014-2015 groups were repeats from the previous season. In the 2015-2016 season, 40% of the groups were repeats from the last season. This surge in customer loyalty calls for a sincere commendation to Hope Rheingans, CJ Heartland, and all of the Group Sales hosts. These individuals have promoted a highly positive group experience on a daily basis and have fostered valuable relationships with many of Group Sales' returning group leaders.</p>
+            <p>Moving forward with a new POS system, CRM practices, and software changes in sight, Monarch group sales will have more time to focus on big wins. With less time spent on managing customer orders and balances, Sales and Marketing staff will hopefully be able to spend more time understanding its customers, increasing retention while reducing churn, acquiring higher value business, and keeping returning customers engaged with Monarch and the local economy.</p>
+
+        </body>
+    </html>
